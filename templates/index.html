@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website with Title Bar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/static/js/index.js"></script>
+    <link href="/static/css/index.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+    <style>
+        .top-100 {top: 100%}
+        .bottom-100 {bottom: 100%}
+        .max-h-select {
+            max-height: 300px;
+        }
+        #cart {
+    position: relative;
+    display: inline-block;
+    font-size: 24px;
+    padding: 10px;
+}
+
+#cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+    </style>
+</head>
+<body>
+    
+    <!-- Title Bar -->
+    <div class="title-bar">
+        <h1>My Website</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <div id="cart">
+                <i class="fa fa-shopping-cart"></i> <!-- Cart icon -->
+                <span id="cart-count" class="badge">5</span> <!-- Cart item count -->
+              </div>
+              
+        </nav>
+    </div>
+    <!-- Content -->
+    <div class="content">
+        <div>
+            <div class="row">
+                <div class="column">
+                </div>
+                <div class="column">
+                    <h2>Welcome to My Website</h2>
+                </div> 
+                <div class="column">
+                 
+                </div>
+        </div>
+    
+    </div>
+    <div>
+        <div class="row">
+            <div class="column"></div>
+            <div class="column">
+                <div class="container mt-5">
+                   
+                    <div class="row">
+                    <label for="styledSelect" class="form-label">Categories:</label>
+                    <select class="form-select form-select-lg" id="styledSelect">
+                        <option selected>Select Categories</option>
+                    </select>
+                    </div>
+                    <div class="bg-white p-2 rounded-lg shadow-md">
+                        <input type="text" id="searchQuery" placeholder="Enter search Product.."
+                            class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+               
+            
+                            <button id="searchBtn"
+                            class="px-2 py-1 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+               
+            </div>
+        </div>
+    </div>
+
+        <div class="container mt-4">
+            <div class="row">
+                <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+                    <div id="grid-container" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- 
+    <div>
+        <button id="remove">remove item</button>
+    </div>
+    <div>
+        <button id="emptycart">empty cart</button>
+    </div>
+
+    <div>
+        <button id="iterate">iterate cart</button>
+    </div> -->
+
+
+</body>
+</html>
