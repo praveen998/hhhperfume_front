@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Flask App</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/static/js/cart.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link href="/static/css/cart.css" rel="stylesheet">
+    <style>
+        .title-bar {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .title-bar nav a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .text-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 767px) {
+            .card-footer ul li {
+                font-size: 0.875rem;
+            }
+
+            .title-bar nav a {
+                font-size: 0.9rem;
+            }
+
+            h2, h5 {
+                font-size: 1.25rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Title Bar -->
+    <div class="title-bar">
+        <h1>My Website</h1>
+        <nav class="d-flex justify-content-center gap-3">
+            <a href="#home">Home</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        <!-- First Row -->
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h2>Welcome to My Website</h2>
+            </div>
+        </div>
+
+        <!-- Product and Delivery Section -->
+        <div class="row g-4 mainwindow">
+        
+            <!-- Product Cards -->
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100">
+                    <div class="card-header py-3">
+                        <h5 class="items mb-0">1 item <span class="float-end" style="font-size: 13px;">Edit</span></h5>
+                    </div>
+                    <!-- card item start -->
+                    <div class="card-body" id="carditems">
+
+
+
+                      
+                        <!-- 2nd card -->
+                      
+                        <!-- 3rd card -->
+                       
+
+
+
+
+                    <!-- card items end -->
+                    </div>
+                    <div class="card-footer">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                Subtotal
+                                <div id="subtotal">$35.00</div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase">
+                                Total to pay
+                                <div id="total">$35.00</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delivery Address Form -->
+            <div class="col-md-8">
+                <div class="card h-100">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">Delivery Address</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <form>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <input type="text" id="firstName" class="form-control" placeholder="First name">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="text" id="lastName" class="form-control" placeholder="Last name">
+                                </div>
+                            </div>
+
+                            <input type="email" id="email" class="form-control mb-4" placeholder="Email">
+                            <input type="number" id="phone" class="form-control mb-4" placeholder="Phone">
+
+                            <select id="country" class="form-control mb-4">
+                                <option value="">Select a Country</option>
+                            </select> 
+                        
+                            <input type="text" id="state" class="form-control mb-4" placeholder="State">
+                            <input type="text" id="address" class="form-control mb-4" placeholder="Address">
+                            <input type="text" id="zipcode" class="form-control mb-4" placeholder="Zipcode">
+                         <textarea id="additionalInfo" class="form-control mb-4" rows="3" placeholder="Additional information"></textarea>
+                            <button type="button" class="placeorder btn btn-primary w-100">Place Order</button>
+                            <div class="required" style="color: red;"></div>
+                            <div class="orderstatus" style="color: green;"></div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- address end -->
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
