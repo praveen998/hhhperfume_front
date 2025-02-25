@@ -1,6 +1,6 @@
 
 function seturl() {
-    localStorage.setItem("fasturl", "http://127.0.0.1:8000");
+    localStorage.setItem("fasturl", "https://6044-103-203-72-196.ngrok-free.app");
 }
 
 function geturl() {
