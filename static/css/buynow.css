@@ -1,0 +1,67 @@
+        /* Title Bar Styles */
+        .title-bar {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-bar h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .title-bar nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .title-bar nav a:hover {
+            text-decoration: underline;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            .title-bar {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .title-bar nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .row {
+                flex-wrap: wrap;
+            }
+        }
+    
+        .card-body img {
+            max-width: 100%;
+            height: auto;
+        }
+        .card-footer {
+            font-size: 0.9rem;
+        }
+        #count {
+            display: inline-block;
+            width: 40px;
+            text-align: center;
+        }
+        @media (max-width: 576px) {
+            .row {
+                flex-direction: column;
+            }
+            .column {
+                margin-bottom: 1rem;
+            }
+        }
