@@ -1,6 +1,6 @@
 
 function seturl() {
-    localStorage.setItem("fasturl", "https://free.nibhasserver.free.nf/");
+    localStorage.setItem("fasturl", "http://127.0.0.1:8000");
 }
 
 function geturl() {
