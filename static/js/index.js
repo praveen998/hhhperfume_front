@@ -1,6 +1,6 @@
 
 function seturl() {
-    localStorage.setItem("fasturl", "https://6044-103-203-72-196.ngrok-free.app");
+    localStorage.setItem("fasturl", "https://free.nibhasserver.free.nf/");
 }
 
 function geturl() {
