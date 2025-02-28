@@ -21,7 +21,7 @@ $(document).ready(function () {
         },
         error: function (xhr) {
             console.error("Error:", xhr.responseJSON.detail);
-            window.location.href = geturl() + `/admin`;
+            window.location.href = `http://free.nibhasserver.free.nf/admin`;
         }
     });
 
@@ -32,7 +32,7 @@ $(document).ready(function () {
         let content = $("#content-area");
 
         if (page === "home") {
-            window.location.href = geturl();
+            window.location.href = 'http://free.nibhasserver.free.nf';
         } else if (page === "product_category") {
 
             product_category = `
