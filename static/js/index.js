@@ -54,7 +54,7 @@ $(document).ready(function () {
     update_cart_logo();
 
     $("#cart").click(function () {
-        window.location.href = geturl() + "/cart";
+        window.location.href = "http://free.nibhasserver.free.nf/cart";
     });
 
 
@@ -155,7 +155,7 @@ function generate_product_cards(selectedV) {
                 var productPrice = closestCard.find('[id^="product_price"]').text();
                 var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                 create_buynow_storage(productName, productImageSrc, productPrice, productDescription)
-                window.location.href = geturl() + "/buynow";
+                window.location.href = "http://free.nibhasserver.free.nf/buynow";
 
             });
 
@@ -170,7 +170,7 @@ function generate_product_cards(selectedV) {
                 var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                 addToCart(productName, productImageSrc, productDescription, productPrice);
                 update_cart_logo();
-                window.location.href = geturl() + "/cart";
+                window.location.href = "http://free.nibhasserver.free.nf/cart";
             });
         },
 
