@@ -64,7 +64,7 @@ $(document).ready(function () {
                 url: geturl() + "/create-order/",
                 type: "POST",
                 headers: {
-                    "X-CSRF-Token": getCookie("csrf_token")
+                    
                 },
                 contentType: "application/json",
                 data: JSON.stringify({
@@ -86,9 +86,9 @@ $(document).ready(function () {
                     await $.ajax({
                         url: geturl() + "/send_purchase_data/",
                         type: "POST",
-                        // headers: {
-                        //     "X-CSRF-Token": csrfToken
-                        // },
+                        headers: {
+                           
+                        },
                         contentType: "application/json",
                         data: JSON.stringify(customer),
                         success: function (response) {
