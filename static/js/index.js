@@ -26,6 +26,7 @@ function getselectedvalue() {
     return selectedValue;
 }
 seturl();
+setweburl();
 
 
 
@@ -60,6 +61,7 @@ $(document).ready(function () {
     loadCart();
     saveCart();
     update_cart_logo();
+
     $("#cart").click(function () {
         window.location.href = getweburl()+`/cart`;
     });
