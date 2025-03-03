@@ -4,7 +4,7 @@ function seturl() {
 }
 
 function setweburl() {
-    localStorage.setItem("weburl", "https://free.nibhasserver.free.nf/");
+    localStorage.setItem("weburl", "https://free.nibhasserver.free.nf");
 }
 
 function getweburl() {
@@ -62,7 +62,7 @@ $(document).ready(function () {
     update_cart_logo();
 
     $("#cart").click(function () {
-        window.location.href = getweburl()+"cart";
+        window.location.href = "https://free.nibhasserver.free.nf/cart";
     });
 
 
