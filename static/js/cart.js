@@ -12,20 +12,29 @@ function sanitizeInput(input) {
     return $("<div>").text(input).html();
 }
 
-let csrfToken = "";
-$.ajax({
-    url: geturl() + "/csrf-token",
-    type: "GET",
-    success: (data) => {
-        console.log("CSRF Token Response:", data);
-        csrfToken = data?.csrf_token || "Not Found";
-        document.cookie = `csrf_token=${csrfToken}; path=/; Secure; HttpOnly`;
-
-    },
-    error: (xhr, status, error) => {
-        console.error("Error fetching CSRF token:", xhr.responseText);
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (let cookie of cookies) {
+        let [key, value] = cookie.split("=");
+        if (key === name) return value;
     }
-});
+    return null;
+}
+
+// let csrfToken = "";
+// $.ajax({
+//     url: geturl() + "/csrf-token",
+//     type: "GET",
+//     success: (data) => {
+//         console.log("CSRF Token Response:", data);
+//         csrfToken = data?.csrf_token || "Not Found";
+//         document.cookie = `csrf_token=${csrfToken}; path=/; Secure; HttpOnly`;
+
+//     },
+//     error: (xhr, status, error) => {
+//         console.error("Error fetching CSRF token:", xhr.responseText);
+//     }
+// });
 
 
 $(document).ready(function () {
@@ -59,7 +68,7 @@ $(document).ready(function () {
                 url: geturl() + "/create-order-cart/",
                 type: "POST",
                 headers: {
-                    "X-CSRF-Token": csrfToken
+                    "X-CSRF-Token": getCookie("csrf_token")
                 },
 
                 contentType: "application/json",

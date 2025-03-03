@@ -25,6 +25,36 @@ function getselectedvalue() {
     selectedValue = localStorage.getItem("selectedValue");
     return selectedValue;
 }
+
+function getCookie(name) {
+    const cookies = document.cookie.split("; ");
+    for (let cookie of cookies) {
+        let [key, value] = cookie.split("=");
+        if (key === name) return value;
+    }
+    return null;
+}
+
+if (!getCookie("csrf_token")) {
+    $.ajax({
+        url: geturl() + "/csrf-token",
+        type: "GET",
+        success: (data) => {
+            console.log("CSRF Token Response:", data);
+            csrfToken = data?.csrf_token || "Not Found";
+
+            // Cannot set HttpOnly cookies from JavaScript, so server should handle this
+            document.cookie = `csrf_token=${csrfToken}; path=/; Secure; SameSite=Strict`;
+        },
+        error: (xhr, status, error) => {
+            console.error("Error fetching CSRF token:", xhr.responseText);
+        }
+    });
+} else {
+    console.log("CSRF token already exists:", getCookie("csrf_token"));
+}
+
+
 seturl();
 setweburl();
 
