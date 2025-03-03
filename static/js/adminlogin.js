@@ -43,7 +43,7 @@ $(document).ready(function () {
             alert("Login Successful: " + response.message);
             sessionStorage.setItem("jwt",response.token);
             console.log(response);
-            window.location.href = geturl()+`/dashboard`;
+            window.location.href = `${getweburl()}/dashboard`;
             
           },
 

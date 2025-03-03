@@ -347,7 +347,7 @@ $(document).ready(function () {
 
 
     $("#cart").click(function () {
-        window.location.href = geturl() + "/cart";
+        window.location.href = `${getweburl()}/cart`;
     });
 
 });
