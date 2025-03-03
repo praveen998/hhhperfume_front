@@ -21,6 +21,7 @@ $.ajax({
     success: (data) => {
         console.log("CSRF Token Response:", data);
         csrfToken = data?.csrf_token || "Not Found";
+        document.cookie = `csrf_token=${csrfToken}; path=/; Secure; HttpOnly`;
     },
     error: (xhr, status, error) => {
         console.error("Error fetching CSRF token:", xhr.responseText);
