@@ -54,7 +54,7 @@ $(document).ready(function () {
     update_cart_logo();
 
     $("#cart").click(function () {
-        window.location.href = "http://free.nibhasserver.free.nf/cart";
+        window.location.href = geturl() + "/cart";
     });
 
 
@@ -104,9 +104,9 @@ $(document).ready(function () {
                     var productPrice = closestCard.find('[id^="product_price"]').text();
                     var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                     create_buynow_storage(productName, productImageSrc, productPrice, productDescription)
-                    window.location.href = "http://free.nibhasserver.free.nf/buynow";
-    
+                    window.location.href = geturl() + "/buynow";
                 });
+                
 
                 $('#grid-container').on('click', '#addcart', function (e) {
                     e.preventDefault();
@@ -118,7 +118,7 @@ $(document).ready(function () {
                     var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                     addToCart(productName, productImageSrc, productDescription, productPrice);
                     update_cart_logo();
-                    window.location.href = "http://free.nibhasserver.free.nf/cart";
+                    window.location.href = geturl() + "/cart";
                 });
             },
             error: function() {
@@ -155,7 +155,7 @@ function generate_product_cards(selectedV) {
                 var productPrice = closestCard.find('[id^="product_price"]').text();
                 var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                 create_buynow_storage(productName, productImageSrc, productPrice, productDescription)
-                window.location.href = "http://free.nibhasserver.free.nf/buynow";
+                window.location.href = geturl() + "/buynow";
 
             });
 
@@ -170,9 +170,10 @@ function generate_product_cards(selectedV) {
                 var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                 addToCart(productName, productImageSrc, productDescription, productPrice);
                 update_cart_logo();
-                window.location.href = "http://free.nibhasserver.free.nf/cart";
+                window.location.href = geturl() + "/cart";
             });
         },
+
 
         error: function (xhr, status, error) {
             console.error("Error fetching text:", error);

@@ -40,7 +40,7 @@ $(document).ready(function () {
             alert("Login Successful: " + response.message);
             sessionStorage.setItem("jwt",response.token);
             console.log(response);
-            window.location.href = `http://free.nibhasserver.free.nf/dashboard`;
+            window.location.href = geturl()+`/dashboard`;
             
           },
 

@@ -21,7 +21,7 @@ $(document).ready(function () {
         },
         error: function (xhr) {
             console.error("Error:", xhr.responseJSON.detail);
-            window.location.href = `http://free.nibhasserver.free.nf/admin`;
+            window.location.href = geturl() + `/admin`;
         }
     });
 
@@ -32,7 +32,7 @@ $(document).ready(function () {
         let content = $("#content-area");
 
         if (page === "home") {
-            window.location.href = 'http://free.nibhasserver.free.nf';
+            window.location.href = geturl();
         } else if (page === "product_category") {
 
             product_category = `
@@ -109,7 +109,7 @@ $(document).ready(function () {
         }
 
         else if(page==="edit_product"){
-            //window.location.href = geturl()+"/edit_product_page";
+            
             edit_product=`
             <div>filter product:  
             <select class="form-select form-select-lg edit_product_category" id="styledSelect">
