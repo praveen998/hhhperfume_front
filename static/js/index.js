@@ -3,11 +3,19 @@ function seturl() {
     localStorage.setItem("fasturl", "http://127.0.0.1:8000");
 }
 
+function setweburl() {
+    localStorage.setItem("weburl", "https://free.nibhasserver.free.nf");
+}
+
+function getweburl() {
+    url = localStorage.getItem("weburl");
+    return url;
+}
+
 function geturl() {
     url = localStorage.getItem("fasturl");
     return url;
 }
-
 
 function setselectedvalue(value) {
     localStorage.setItem("selectedValue", `${value}`);
@@ -54,7 +62,7 @@ $(document).ready(function () {
     update_cart_logo();
 
     $("#cart").click(function () {
-        window.location.href = geturl() + "/cart";
+        window.location.href = getweburl() + "/cart";
     });
 
 
@@ -104,7 +112,7 @@ $(document).ready(function () {
                     var productPrice = closestCard.find('[id^="product_price"]').text();
                     var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                     create_buynow_storage(productName, productImageSrc, productPrice, productDescription)
-                    window.location.href = geturl() + "/buynow";
+                    window.location.href = getweburl() + "/buynow";
                 });
                 
 
@@ -118,7 +126,7 @@ $(document).ready(function () {
                     var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                     addToCart(productName, productImageSrc, productDescription, productPrice);
                     update_cart_logo();
-                    window.location.href = geturl() + "/cart";
+                    window.location.href = getweburl() + "/cart";
                 });
             },
             error: function() {
@@ -155,7 +163,7 @@ function generate_product_cards(selectedV) {
                 var productPrice = closestCard.find('[id^="product_price"]').text();
                 var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                 create_buynow_storage(productName, productImageSrc, productPrice, productDescription)
-                window.location.href = geturl() + "/buynow";
+                window.location.href = getweburl() + "/buynow";
 
             });
 
@@ -170,7 +178,7 @@ function generate_product_cards(selectedV) {
                 var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
                 addToCart(productName, productImageSrc, productDescription, productPrice);
                 update_cart_logo();
-                window.location.href = geturl() + "/cart";
+                window.location.href = getweburl() + "/cart";
             });
         },
 

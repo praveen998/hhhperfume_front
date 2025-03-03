@@ -4,6 +4,11 @@ function geturl() {
     return url;
 }
 
+function getweburl() {
+    url = localStorage.getItem("weburl");
+    return url;
+}
+
 function sanitizeInput(input) {
     return $("<div>").text(input).html();
 }
