@@ -60,9 +60,8 @@ $(document).ready(function () {
     loadCart();
     saveCart();
     update_cart_logo();
-
     $("#cart").click(function () {
-        window.location.href = `https://free.nibhasserver.free.nf/cart`;
+        window.location.href = getweburl()+`/cart`;
     });
 
 
@@ -77,6 +76,7 @@ $(document).ready(function () {
     $("#iterate").click(function () {
         iterateCartItems();
     });
+
 
     //submit selection boc category to backend------------------------------------
     $("#styledSelect").on("change", function () {
