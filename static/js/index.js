@@ -62,7 +62,7 @@ $(document).ready(function () {
     update_cart_logo();
 
     $("#cart").click(function () {
-        window.location.href = `${getweburl()}/cart.html`;
+        window.location.href = `https://free.nibhasserver.free.nf/cart`;
     });
 
 
