@@ -63,10 +63,10 @@ $(document).ready(function () {
             let response = await $.ajax({
                 url: geturl() + "/create-order/",
                 type: "POST",
-                headers: {
-                    
-                },
                 contentType: "application/json",
+                xhrFields: {
+                    withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
+                },
                 data: JSON.stringify({
                     first_name: firstName,
                     last_name: lastName,
