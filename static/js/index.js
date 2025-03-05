@@ -1,6 +1,6 @@
 
 function seturl() {
-    localStorage.setItem("fasturl", "https://7036-45-115-89-138.ngrok-free.app");
+    localStorage.setItem("fasturl", "https://fd9b-45-115-89-150.ngrok-free.app");
 }
 
 function setweburl() {
