@@ -60,9 +60,9 @@ function add_new_product(){
     $.ajax({
         url: geturl()+"/add_new_product/",
         type: "POST",
-        // headers: {
-        //     "Authorization": "Bearer " + token
-        // },
+        headers: {
+            "Authorization": "Bearer " + token
+        },
         data: formData,
         contentType: false,
         processData: false,
@@ -76,5 +76,4 @@ function add_new_product(){
         }
     });
     
-
 }
