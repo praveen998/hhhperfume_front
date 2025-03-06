@@ -55,6 +55,7 @@ function add_new_product(){
     formData.append("uae_price", $("#uae_price").val());
     formData.append("category", $("#styledSelect").val());
     formData.append("product_img", $("#product_img")[0].files[0]);
+    console.log(formData);
 
     $.ajax({
         url: geturl()+"/add_new_product/",

@@ -100,7 +100,6 @@ $(document).ready(function () {
                                     <label for="product_img" class="form-label fw-bold">Upload Product Image:</label>
                                     <input type="file" class="form-control" id="product_img" name="product_img" accept="image/*">
                                     <img id="preview" alt="Image Preview">
-
                                 </div><br><br>
     
                                 <button id="addproduct" type="button" class="btn btn-primary w-100" onclick="add_new_product()">Add Product</button>
