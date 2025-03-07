@@ -67,10 +67,13 @@ $(document).ready(function () {
             let response = await $.ajax({
                 url: geturl() + "/create-order-cart/",
                 type: "POST",
-                headers: {
-                },
-
                 contentType: "application/json",
+                headers: {
+                    "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
+                },
+                xhrFields: {
+                    withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
+                },
                 data: JSON.stringify(requestData),
                 success: async function (response) {
                     customer = response;
@@ -78,6 +81,10 @@ $(document).ready(function () {
                         url: geturl() + "/send_purchase_data/",
                         type: "POST",
                         headers: {
+                            "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
+                        },
+                        xhrFields: {
+                            withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
                         },
                         contentType: "application/json",
                         data: JSON.stringify(customer),
