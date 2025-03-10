@@ -68,24 +68,24 @@ $(document).ready(function () {
                 url: geturl() + "/create-order-cart/",
                 type: "POST",
                 contentType: "application/json",
-                headers: {
-                    "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
-                },
-                xhrFields: {
-                    withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
-                },
+                // headers: {
+                //     "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
+                // },
+                // xhrFields: {
+                //     withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
+                // },
                 data: JSON.stringify(requestData),
                 success: async function (response) {
                     customer = response;
                     await $.ajax({
                         url: geturl() + "/send_purchase_data/",
                         type: "POST",
-                        headers: {
-                            "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
-                        },
-                        xhrFields: {
-                            withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
-                        },
+                        // headers: {
+                        //     "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
+                        // },
+                        // xhrFields: {
+                        //     withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
+                        // },
                         contentType: "application/json",
                         data: JSON.stringify(customer),
                         success: function (response) {
