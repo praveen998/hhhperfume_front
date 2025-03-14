@@ -15,6 +15,58 @@
 
     <link href="/static/css/dashboard.css" rel="stylesheet">
     <style>
+
+.table-container {
+  margin-left: 20px; /* Left margin to push it away from the edge */
+  margin-right: 20px;
+  overflow-x: auto; /* Enables horizontal scrolling on small screens */
+}
+
+#productTable {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 800px; /* Ensures the table doesn't squish too much */
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#productTable th,
+#productTable td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  white-space: nowrap; /* Prevents text from wrapping inside cells */
+}
+
+#productTable thead {
+  background-color: #007BFF;
+  color: #fff;
+}
+
+#productTable tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Responsive Behavior */
+@media (max-width: 768px) {
+  .table-container {
+    margin-left: 10px;  /* Less margin for small devices */
+    margin-right: 10px;
+  }
+
+  #productTable {
+    font-size: 14px; /* Slightly smaller text on mobile */
+    min-width: 600px; /* Still needs room, hence horizontal scroll */
+  }
+}
+
+@media (max-width: 480px) {
+  #productTable {
+    font-size: 12px;
+    min-width: 500px;
+  }
+}
+ 
          #preview {
             margin-top: 10px;
             max-width: 500px;
@@ -63,6 +115,7 @@
             <a href="#" onclick="loadPage('product_category')">⚙️ Product Category</a>
             <a href="#" onclick="loadPage('add_product')">⚙️ Add Product</a>
             <a href="#" onclick="loadPage('edit_product')">⚙️ Edit Product</a>
+            <a href="#" onclick="loadPage('show_orders')">⚙️ show orders</a>
             <a href="#" onclick="loadPage('settings')">⚙️ Settings</a>
         </nav>
 

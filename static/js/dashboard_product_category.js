@@ -3,74 +3,27 @@ function geturl() {
     return url;
 }
 
-function getweburl() {
-    url = localStorage.getItem("weburl");
-    return url;
-}
-
-
-
-function add_new_product(){
-    const token = sessionStorage.getItem("jwt");
-    let formData = new FormData();
-    formData.append("product_name", $("#product_name").val());
-    formData.append("product_description", $("#product_description").val());
-    formData.append("india_price", $("#india_price").val());
-    formData.append("uae_price", $("#uae_price").val());
-    formData.append("category", $("#styledSelect").val());
-    formData.append("product_img", $("#product_img")[0].files[0]);
-    console.log(formData);
-    $.ajax({
-        url: geturl()+"/add_new_product/",
-        type: "POST",
-        headers: {
-            "Authorization": "Bearer " + token
-        },
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            console.log(response);
-            alert("Product Insert Successful!");
-        },
-        error: function (xhr, status, error) {
-            console.error("Error:", error);
-            alert("Error occure");
-        }
-    });
-    
-}
-
 loadCategories();
 
 
+
+
 $(document).ready(function () {
-    $(document).change("#product_img",function(event){
-        let file = event.target.files[0];
-        if (file) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                $("#preview").attr("src", e.target.result).show();
-            };
-            reader.readAsDataURL(file);
+    const token = sessionStorage.getItem("jwt");
+    $.ajax({
+        url: geturl()+"/protected",
+        type: "GET",
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+        success: function (response) {
+            console.log("Response:", response);
+        },
+        error: function (xhr) {
+            console.error("Error:", xhr.responseJSON.detail);
+            window.location.href = geturl() + `/admin`;
         }
     });
-
-    // const token = sessionStorage.getItem("jwt");
-    // $.ajax({
-    //     url: geturl()+"/protected",
-    //     type: "GET",
-    //     headers: {
-    //         "Authorization": "Bearer " + token
-    //     },
-    //     success: function (response) {
-    //         console.log("Response:", response);
-    //     },
-    //     error: function (xhr) {
-    //         console.error("Error:", xhr.responseJSON.detail);
-    //         window.location.href = `${getweburl()}/admin`;
-    //     }
-    // });
 
     //fetch product categorys into table----------------------------
 
@@ -79,7 +32,7 @@ $(document).ready(function () {
         let content = $("#content-area");
 
         if (page === "home") {
-            window.location.href = `${getweburl()}`;
+            window.location.href = geturl();
         } else if (page === "product_category") {
 
             product_category = `
@@ -142,9 +95,8 @@ $(document).ready(function () {
                                     <label for="product_img" class="form-label fw-bold">Upload Product Image:</label>
                                     <input type="file" class="form-control" id="product_img" name="product_img" accept="image/*">
                                     <img id="preview" alt="Image Preview">
-                                </div><br><br>
 
-                                
+                                </div><br><br>
     
                                 <button id="addproduct" type="button" class="btn btn-primary w-100" onclick="add_new_product()">Add Product</button>
                             </form>
@@ -164,8 +116,8 @@ $(document).ready(function () {
                 <option selected>Select Categories</option>
             </select>
             <br><br>
-             <div>
-                 <table id="productTable">
+            <div>
+                <table id="productTable">
                     <thead>
                         <tr>
                             <th>Product Name</th>
@@ -173,7 +125,6 @@ $(document).ready(function () {
                             <th>Prices (JSON)</th>
                             <th>Image</th>
                             <th>Actions</th>
-                           
                         </tr>
                     </thead>
                     <tbody>
@@ -185,6 +136,41 @@ $(document).ready(function () {
             `
             content.html(edit_product);
             load_addproject_Categories();
+        }
+        else if (page === "show_orders")
+        {
+
+        showorder=
+        `
+            <div class="table-container">
+            <table id="productTable">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>payment_id</th>
+                        <th>product_purchase_list</th>
+                        <th>first_name</th>
+                        <th>last_name</th>
+                        <th>phone</th>
+                        <th>email</th>
+                        <th>country</th>
+                        <th>state</th>
+                        <th>city</th>
+                        <th>zipcode</th>
+                        <th>address</th>
+                        <th>total_amount</th>
+                        <th>payment_date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        `
+
+        content.html(showorder);
+        load_addproject_Categories();
+
         }
         else if (page === "settings") {
             content.html("<h3>⚙️ Settings</h3><p>Manage your settings here.</p>");
@@ -251,6 +237,45 @@ function deleteCategory(id) {
 }
 
 
+function load_addproject_Categories(){
+    $.ajax({
+        url: geturl() + "/list_category",
+        method: "GET",
+        success: function (data) {
+            const selectElement = $("#styledSelect");
+            selectElement.empty(); // Clear existing options
+            // Add new options dynamically
+            data.forEach(option => {
+                selectElement.append(
+                    `<option value="${option.categories}">${option.categories}</option>`
+                );
+            });
+        },
+        error: function () {
+            alert("Failed to load options. Please try again.");
+        }
+    });
+}
+
+function load_addproject_Categories(){
+    $.ajax({
+        url: geturl() + "/list_category",
+        method: "GET",
+        success: function (data) {
+            const selectElement = $("#styledSelect");
+            selectElement.empty(); // Clear existing options
+            // Add new options dynamically
+            data.forEach(option => {
+                selectElement.append(
+                    `<option value="${option.categories}">${option.categories}</option>`
+                );
+            });
+        },
+        error: function () {
+            alert("Failed to load options. Please try again.");
+        }
+    });
+}
 
 function load_addproject_Categories(){
     $.ajax({
