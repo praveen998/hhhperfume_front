@@ -4,38 +4,24 @@ function geturl() {
     return url;
 }
 
-function getweburl() {
-    url = localStorage.getItem("weburl");
-    return url;
-}
-
 function sanitizeInput(input) {
     return $("<div>").text(input).html();
 }
 
 
-function getCookie(name) {
-    const cookies = document.cookie.split("; ");
-    for (let cookie of cookies) {
-        let [key, value] = cookie.split("=");
-        if (key === name) return value;
+let csrfToken = "";
+$.ajax({
+    url: geturl() + "/csrf-token",
+    type: "GET",
+    success: (data) => {
+        console.log("CSRF Token Response:", data);
+        csrfToken = data?.csrf_token || "Not Found";
+        
+    },
+    error: (xhr, status, error) => {
+        console.error("Error fetching CSRF token:", xhr.responseText);
     }
-    return null;
-}
-
-// let csrfToken = "";
-// $.ajax({
-//     url: geturl() + "/csrf-token",
-//     type: "GET",
-//     success: (data) => {
-//         console.log("CSRF Token Response:", data);
-//         csrfToken = data?.csrf_token || "Not Found";
-//         document.cookie = `csrf_token=${csrfToken}; path=/; Secure; HttpOnly`;
-//     },
-//     error: (xhr, status, error) => {
-//         console.error("Error fetching CSRF token:", xhr.responseText);
-//     }
-// });
+});
 
 
 
@@ -61,7 +47,7 @@ $(document).ready(function () {
             //alert(`${total_amount}`);
             $(".required").text('');
             let response = await $.ajax({
-                url: geturl() + "/create-order/",
+                url: geturl()+"/create-order/",
                 type: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({
@@ -143,7 +129,7 @@ $(document).ready(function () {
                             </div>
                         </div>
                         `);
-
+                        
                     $(".paymentdiv").css("visibility", "visible");
                     localStorage.setItem('order', JSON.stringify(response));
                     $(".pay-button").click(function (e) {
@@ -173,56 +159,86 @@ $(document).ready(function () {
                                 });
 
                                 let result = await verifyResponse.json();
+
                                 if (verifyResponse.ok) {
-                                    alert("✅ Payment Verified: " + result.message);
-                                    $(".mainwindow").html(`
-                                        <span style="color: green;">Your Order Created...! Thanks for Purchasing</span>
-                                        <div class="card-footer mt-4">
-                                           <ul class="list-group list-group-flush">
-                                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Order id
-                                                   <div>${customer.id}</div>
-                                               </li>
-                                               <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Name
-                                                   <div>${customer.first_name} ${customer.last_name}</div>
-                                               </li>
-                                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Email
-                                                   <div>${customer.email}</div>
-                                               </li>
-                                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Phone
-                                                   <div>${customer.phone}</div>
-                                               </li>
-                                                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  State
-                                                   <div>${customer.state}</div>
-                                               </li>
-                                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  city
-                                                   <div>${customer.city}</div>
-                                               </li>
-                                                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Address
-                                                   <div>${customer.address}</div>
-                                               </li>
-                                                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Country
-                                                   <div>${customer.country}</div>
-                                               </li>
-                                                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Zipcode
-                                                   <div>${customer.zipcode}</div>
-                                               </li>
-                                               <li class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase">
-                                                   Total to pay
-                                                   <div id="total">${customer.total_amount}</div>
-                                               </li>   
-                                           </ul>
-                                       </div>
-                                       `);
-                                } else {
+                                    let parsedValue = JSON.parse(localStorage.getItem('buynow_product'));
+                                    var requestData = {
+                                        payment_id:customer.id,
+                                        product_purchase_list:parsedValue,
+                                        first_name:customer.first_name,
+                                        last_name:customer.last_name,
+                                        phone:customer.phone,
+                                        email:customer.email,
+                                        country:customer.country,
+                                        state:customer.state,
+                                        city:customer.city,
+                                        zipcode:customer.zipcode,
+                                        address:customer.address,
+                                        total_amount:customer.total_amount
+                                    };
+                                  await $.ajax({
+                                        url: geturl()+"/add_payment_details/", // Your API endpoint
+                                        type: "POST",
+                                        contentType: "application/json",
+                                        data: JSON.stringify(requestData), // Data sent to the backend
+                                        success: function(response) {
+                                            // console.log("Success:", response);
+                                            // alert("Payment submitted successfully!");
+                                            alert("✅ Payment Verified: " + result.message);
+                                            $(".mainwindow").html(`
+                                                <span style="color: green;">Your Order Created...! Thanks for Purchasing</span>
+                                                <div class="card-footer mt-4">
+                                                   <ul class="list-group list-group-flush">
+                                                     <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Order id
+                                                           <div>${customer.id}</div>
+                                                       </li>
+                                                       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Name
+                                                           <div>${customer.first_name} ${customer.last_name}</div>
+                                                       </li>
+                                                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Email
+                                                           <div>${customer.email}</div>
+                                                       </li>
+                                                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Phone
+                                                           <div>${customer.phone}</div>
+                                                       </li>
+                                                          <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          State
+                                                           <div>${customer.state}</div>
+                                                       </li>
+                                                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          city
+                                                           <div>${customer.city}</div>
+                                                       </li>
+                                                           <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Address
+                                                           <div>${customer.address}</div>
+                                                       </li>
+                                                           <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Country
+                                                           <div>${customer.country}</div>
+                                                       </li>
+                                                           <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Zipcode
+                                                           <div>${customer.zipcode}</div>
+                                                       </li>
+                                                       <li class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase">
+                                                           Total to pay
+                                                           <div id="total">${customer.total_amount}</div>
+                                                       </li>   
+                                                   </ul>
+                                               </div>
+                                               `);
+                                        },
+                                        error: function(xhr, status, error) {
+                                            console.error("Error:", error);
+                                            alert("Error occurred while submitting payment.");
+                                        }
+                                    });
+                                                                   } else {
                                     alert("❌ Payment Verification Failed: " + result.detail);
                                 }
 
@@ -288,9 +304,6 @@ $(document).ready(function () {
             $('#country').append(`<option value="${country.country}">${country.country}</option>`);
         });
     });
-    // countries.forEach(function (country) {
-    //     countrySelect.append('<option value="' + country.id + '">' + country.text + '</option>');
-    // });
 
     $('#country').change(function() {
        
@@ -351,7 +364,7 @@ $(document).ready(function () {
 
 
     $("#cart").click(function () {
-        window.location.href = `${getweburl()}/cart`;
+        window.location.href = geturl() + "/cart";
     });
 
 });
@@ -466,3 +479,19 @@ function get_stored_value() {
     return storedValue;
 }
 
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        let cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Check if the cookie name matches
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

@@ -3,38 +3,25 @@ function geturl() {
     return url;
 }
 
-function getweburl() {
-    url = localStorage.getItem("weburl");
-    return url;
-}
 
 function sanitizeInput(input) {
     return $("<div>").text(input).html();
 }
 
-function getCookie(name) {
-    const cookies = document.cookie.split("; ");
-    for (let cookie of cookies) {
-        let [key, value] = cookie.split("=");
-        if (key === name) return value;
+
+let csrfToken = "";
+$.ajax({
+    url: geturl() + "/csrf-token",
+    type: "GET",
+    success: (data) => {
+        console.log("CSRF Token Response:", data);
+        csrfToken = data?.csrf_token || "Not Found";
+
+    },
+    error: (xhr, status, error) => {
+        console.error("Error fetching CSRF token:", xhr.responseText);
     }
-    return null;
-}
-
-// let csrfToken = "";
-// $.ajax({
-//     url: geturl() + "/csrf-token",
-//     type: "GET",
-//     success: (data) => {
-//         console.log("CSRF Token Response:", data);
-//         csrfToken = data?.csrf_token || "Not Found";
-//         document.cookie = `csrf_token=${csrfToken}; path=/; Secure; HttpOnly`;
-
-//     },
-//     error: (xhr, status, error) => {
-//         console.error("Error fetching CSRF token:", xhr.responseText);
-//     }
-// });
+});
 
 
 $(document).ready(function () {
@@ -68,24 +55,12 @@ $(document).ready(function () {
                 url: geturl() + "/create-order-cart/",
                 type: "POST",
                 contentType: "application/json",
-                // headers: {
-                //     "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
-                // },
-                // xhrFields: {
-                //     withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
-                // },
                 data: JSON.stringify(requestData),
                 success: async function (response) {
                     customer = response;
                     await $.ajax({
                         url: geturl() + "/send_purchase_data/",
                         type: "POST",
-                        // headers: {
-                        //     "X-CSRF-Token": "use_server_side_extraction" // Placeholder, not needed in JS
-                        // },
-                        // xhrFields: {
-                        //     withCredentials: true  // ✅ Ensures cookies (including CSRF token) are sent
-                        // },
                         contentType: "application/json",
                         data: JSON.stringify(customer),
                         success: function (response) {
@@ -181,56 +156,86 @@ $(document).ready(function () {
                                     let result = await verifyResponse.json();
                                     if (verifyResponse.ok) {
 
-                                        alert("✅ Payment Verified: " + result.message);
+                                        let parsedValue = JSON.parse(localStorage.getItem('mycart'));
+                                        var requestData = {
+                                            payment_id:customer.id,
+                                            product_purchase_list:parsedValue,
+                                            first_name:customer.first_name,
+                                            last_name:customer.last_name,
+                                            phone:customer.phone,
+                                            email:customer.email,
+                                            country:customer.country,
+                                            state:customer.state,
+                                            city:customer.city,
+                                            zipcode:customer.zipcode,
+                                            address:customer.address,
+                                            total_amount:customer.total_amount
+                                        };
+                                        await $.ajax({
+                                            url: geturl()+"/add_payment_details/", // Your API endpoint
+                                            type: "POST",
+                                            contentType: "application/json",
+                                            data: JSON.stringify(requestData), // Data sent to the backend
+                                            success: function(response) {
+                                                alert("✅ Payment Verified: " + result.message);
 
-                                        $(".mainwindow").html(`
-                                        <span style="color: green;">Your Order Created...! Thanks for Purchasing</span>
-                                        <div class="card-footer mt-4">
-                                           <ul class="list-group list-group-flush">
-                                              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Order id
-                                                   <div>${customer.id}</div>
-                                               </li>
-                                               <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Name
-                                                   <div>${customer.first_name} ${customer.last_name}</div>
-                                               </li>
-                                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Email
-                                                   <div>${customer.email}</div>
-                                               </li>
-                                                 <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Phone
-                                                   <div>${customer.phone}</div>
-                                               </li>
-                                                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  State
-                                                   <div>${customer.state}</div>
-                                               </li>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  city
-                                                    <div>${customer.city}</div>
-                                                </li>
-                                               
-                                                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Address
-                                                   <div>${customer.address}</div>
-                                               </li>
-                                                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Country
-                                                   <div>${customer.country}</div>
-                                               </li>
-                                                   <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
-                                                  Zipcode
-                                                   <div>${customer.zipcode}</div>
-                                               </li>
-                                               <li class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase">
-                                                   Total to pay
-                                                   <div id="total">${customer.total_amount}</div>
-                                               </li>   
-                                           </ul>
-                                       </div>
-                                       `);
+                                                $(".mainwindow").html(`
+                                                <span style="color: green;">Your Order Created...! Thanks for Purchasing</span>
+                                                <div class="card-footer mt-4">
+                                                   <ul class="list-group list-group-flush">
+                                                      <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Order id
+                                                           <div>${customer.id}</div>
+                                                       </li>
+                                                       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Name
+                                                           <div>${customer.first_name} ${customer.last_name}</div>
+                                                       </li>
+                                                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Email
+                                                           <div>${customer.email}</div>
+                                                       </li>
+                                                         <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Phone
+                                                           <div>${customer.phone}</div>
+                                                       </li>
+                                                          <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          State
+                                                           <div>${customer.state}</div>
+                                                       </li>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          city
+                                                            <div>${customer.city}</div>
+                                                        </li>
+                                                       
+                                                           <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Address
+                                                           <div>${customer.address}</div>
+                                                       </li>
+                                                           <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Country
+                                                           <div>${customer.country}</div>
+                                                       </li>
+                                                           <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-muted">
+                                                          Zipcode
+                                                           <div>${customer.zipcode}</div>
+                                                       </li>
+                                                       <li class="list-group-item d-flex justify-content-between align-items-center px-0 fw-bold text-uppercase">
+                                                           Total to pay
+                                                           <div id="total">${customer.total_amount}</div>
+                                                       </li>   
+                                                   </ul>
+                                               </div>
+                                               `);
+                                            },
+                                            error: function(xhr, status, error) {
+                                                console.error("Error:", error);
+                                                alert("Error occurred while submitting payment.");
+                                            }
+                                        });
+
+
+                                    
                                     } else {
                                         alert("❌ Payment Verification Failed: " + result.detail);
                                     }
@@ -476,4 +481,20 @@ function count_total_price() {
     }
     $("#subtotal").text(`${total_price}`);
     $("#total").text(`${total_price}`);
+}
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        let cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Check if the cookie name matches
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
