@@ -3,6 +3,11 @@ function geturl() {
     return url;
 }
 
+function getweburl() {
+    url = localStorage.getItem("weburl");
+    return url;
+}
+
 loadCategories();
 
 
@@ -35,7 +40,7 @@ $(document).ready(function () {
         let content = $("#content-area");
 
         if (page === "home") {
-            window.location.href = geturl();
+            window.location.href = getweburl();
         } else if (page === "product_category") {
 
             product_category = `
