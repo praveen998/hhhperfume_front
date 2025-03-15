@@ -25,6 +25,9 @@ $(document).ready(function () {
         }
     });
 
+    //send filtr date to backend
+  
+
     //fetch product categorys into table----------------------------
 
     //------------------------------------------------------------------------
@@ -142,7 +145,14 @@ $(document).ready(function () {
 
         showorder=
         `
-            <div class="table-container">
+        <div class="table-container">
+         <div style="margin-bottom: 15px;">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate">
+
+       
+        <button id="filterByDate" style="margin-left: 10px;">Filter</button>
+        </div>
             <table id="productTable">
                 <thead>
                     <tr>
@@ -357,3 +367,77 @@ function addCategory() {
         }
     });
 }
+
+
+
+$(document).on("click", "#filterByDate", function (event) {
+    event.preventDefault();
+    var startDate = $('#startDate').val();
+    // var endDate = $('#endDate').val();
+    alert(`${startDate}`);
+    if (!startDate) {
+        alert('Please select both start and end dates!');
+        return;
+    }
+   
+    $.ajax({
+        url: geturl()+'/get_orders', 
+        type: 'POST',
+        contentType: "application/json",
+        data: JSON.stringify({ start_date: startDate}),
+        success: function (response) {
+            // Example: You can dynamically append rows here based on response
+            console.log(response);
+            appendRows(response);
+
+            // Optional: Clear existing table data
+    },
+    error: function (xhr, status, error) {
+        console.error(error);
+    }
+});
+
+});
+
+
+function appendRows(data) {
+    let tbody = $("#productTable tbody");
+    tbody.empty(); // Clear existing rows
+    data.forEach(function (order) {
+        //let productList = "";
+        // if (Array.isArray(order.product_purchase_list)) {
+        //     order.product_purchase_list.forEach((product) => {
+        //         productList += `<div>
+        //             <img src="${product.product_src}" width="50" height="50">
+        //             ${product.product_name} (x${product.product_count}) - ₹${product.product_total}
+        //         </div>`;
+        //     });
+        // } else {
+        //     productList = `<div>
+        //         <img src="${order.product_purchase_list.product_src}" width="50" height="50">
+        //         ${order.product_purchase_list.product_name} (x${order.product_purchase_list.product_count}) - ₹${order.product_purchase_list.product_total}
+        //     </div>`;
+        // }
+
+        let row = `
+            <tr>
+                <td>${order.id}</td>
+                <td>${order.payment_id}</td>
+                <td>${order.product_purchase_list}</td>
+                <td>${order.first_name}</td>
+                <td>${order.last_name}</td>
+                <td>${order.phone}</td>
+                <td>${order.email}</td>
+                <td>${order.country}</td>
+                <td>${order.state}</td>
+                <td>${order.city}</td>
+                <td>${order.zipcode}</td>
+                <td>${order.address}</td>
+                <td>₹${order.total_amount}</td>
+                <td>${order.payment_date}</td>
+            </tr>
+        `;
+        tbody.append(row);
+    });
+}
+
