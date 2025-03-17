@@ -1,6 +1,6 @@
 
 function seturl() {
-    localStorage.setItem("fasturl", "https://ec2-13-201-19-135.ap-south-1.compute.amazonaws.com");
+    localStorage.setItem("fasturl", "https://perfume.hhhperfumes.shop");
 }
 
 function setweburl() {

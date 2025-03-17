@@ -35,6 +35,7 @@ $(document).ready(function () {
 
     //fetch product categorys into table----------------------------
 
+    
     //------------------------------------------------------------------------
     function loadPage(page) {
         let content = $("#content-area");
