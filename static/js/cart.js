@@ -129,7 +129,7 @@ $(document).ready(function () {
                         e.preventDefault();
                         alert('paymentbutton clicked');
                         var options = {
-                            key: "rzp_live_mTIu0xPmauZqNV", // Replace with your Razorpay Key ID
+                            key: "rzp_test_2SSqGlsTH8Gc2X", // Replace with your Razorpay Key ID
                             amount: response.amount, // Amount in paise (e.g., 1000 = ₹10)
                             currency: response.currency,
                             order_id: response.id,
