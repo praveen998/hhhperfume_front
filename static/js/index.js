@@ -74,8 +74,6 @@ $.ajax({
 
 $("#styledSelect").val("YourCategoryValue").change();
 $(document).ready(function () {
-
-    saveCart();
     loadCart();
     update_cart_logo();
 
@@ -143,6 +141,7 @@ $(document).ready(function () {
                     var productDescription = closestCard.find('[id^="product_description"]').text();
                     var productPrice = closestCard.find('[id^="product_price"]').text();
                     var productPrice = parseInt(productPrice.replace(/[₹,]/g, ''));
+                    
                     addToCart(productName, productImageSrc, productDescription, productPrice);
                     update_cart_logo();
                     window.location.href = `${getweburl()}/cart`;
