@@ -17,8 +17,8 @@
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #8d0404, #411010);
-            color: white;
+            background:white;
+            color: black;
         }
 
 
@@ -29,8 +29,8 @@
         /* Title Bar Styles */
         .title-bar {
             /* background-color: #007BFF; */
-            background: linear-gradient(135deg, #8d0404, #411010);
-            color: white;
+            background:white;
+            color: black;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -49,7 +49,7 @@
         }
 
         .title-bar nav a {
-            color: white;
+            color: black;
             text-decoration: none;
             font-size: 16px;
         }
@@ -60,21 +60,94 @@
 
         /* Content Section */
         .content {
-            padding: 20px;
-            background: linear-gradient(135deg, #8d0404, #411010);
-
-            color: white;
+            padding: 10px;
+            background:white;
+            color:black;
         }
 
         .column {
             padding: 50px;
             /* background: linear-gradient(135deg, #8d0404, #411010);  */
-            background-color: #8d0404;
+            background-image:url(static/images/zocochase\ 100\ ml_page-0006.jpg);
+        
 
             text-align: center;
             flex: 1;
 
         }
+
+        .featured-card {
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px; /* Smooth rounded corners */
+        }
+
+    .featured-card:hover{
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Add a glowing border effect */
+    .featured-card::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        background: linear-gradient(45deg, #fdfdfd, #faf8f8);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        border-radius: 15px;
+        z-index: -1;
+    }
+
+    .featured-card:hover::before {
+        opacity: 1;
+    }
+
+    /* Image Overlay Effect */
+    .card-img-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(1px);
+        transition: background 0.3s ease;
+    }
+
+    .featured-card:hover .card-img-overlay {
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    /* Card Text Styling */
+    .card-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        font-weight: 300;
+        opacity: 0.8;
+    }
+
+    /* Button Styling */
+    .explore-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        color: white;
+        border: 1px solid white;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .explore-btn:hover {
+        background: white;
+        color: black;
+        transform: scale(1.1);
+    }
 
         /* Card Styles */
         .card {
@@ -136,7 +209,6 @@
             height: 80px;
             color: white;
             text-align: center;
-            line-height: 80px;
         }
 
 
@@ -163,104 +235,168 @@
             position: absolute;
             top: -5px;
             right: -10px;
-            background-color: red;
-            color: white;
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
             font-size: 14px;
             padding: 5px;
             border-radius: 50%;
         }
 
         #styledSelect option {
-            background-color: #dc3545;
+            background-color: white;
             /* Bootstrap danger red */
-            color: white;
+            color: black;
         }
+        .top-content h5{
+            font-family: "sans-serif", poppins;
+            color: whitesmoke;
+            font-size: 30px;
+        }
+
     </style>
 </head>
 
 <body>
 
     <!-- Title Bar -->
-    <div class="title-bar">
-        <img src="../static/images/hhhperfumeslogonew.png" alt="Description of image" width="100" height="80">
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-            <div id="cart">
-                <i class="fa fa-shopping-cart"></i> <!-- Cart icon -->
-                <span id="cart-count" class="badge">5</span> <!-- Cart item count -->
-            </div>
+    <div class="title-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px;">
+    
+        <!-- Logo -->
+        <img src="../static/images/hhhperfumeslogonew.png" alt="Logo" width="100" height="80">
+    
+        <!-- Navigation Bar -->
+        <nav style="display: flex; align-items: center; gap: 50px;">
+            
+            <!-- Search Bar -->
+            <div class="rounded-lg" style="display: flex; gap: 10px; align-items: center; background-color: transparent; width: 100%;">
+                <input type="text" id="searchQuery" placeholder="Enter the product name"
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent text-black placeholder-black"
+                    style="width: 300px; flex-grow: 1;">
+                <button id="searchBtn"
+                    class="px-3 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
+                    Search
+                </button>
+            </div>            
+    
+            <!-- Category Dropdown -->
+            <div class="row" style="padding-bottom: 35px; display: flex; align-items: center; gap: 2px;">
+                <label for="styledSelect" class="form-label text-white" style="font-size: 14px;">Categories:</label>
+                <select class="form-select text-black bg-white border-1 rounded px-1 py-0" id="styledSelect" style="font-size: 15px; height: 40px; min-width: 150px;">
+                    <option selected class="text-black">Select Category</option>
+                </select>
+            </div>            
+            
+            <!-- Navigation Links -->
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <a href="#home" class="text-black">Home</a>
+                <a href="#about" class="text-black">About</a>
+                <a href="#contact" class="text-black">Contact</a>
 
+                <div id="cart" style="display: flex; align-items: center; gap: 5px;">
+                    <i class="fa fa-shopping-cart text-black"></i> <!-- Cart icon -->
+                    <span id="cart-count" class="badge text-black">5</span> <!-- Cart item count -->
+                </div>
+            </div>
+    
         </nav>
+    </div>    
+    
+
+    <div class="container-fluidcontent">
+        
+    <!-- Bootstrap Carousel -->
+        <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/static/images/HHH (1).jpg" class="d-block w-100" alt="Slide 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/images/HHH (3).jpg" class="d-block w-100" alt="Slide 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="/static/images/HHH (2).jpg" class="d-block w-100" alt="Slide 3">
+                </div>
+            </div>
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
-    <!-- Content -->
-    <div class="content">
-        <!-- <div>
-            <div class="row">
-                <div class="column">
-                </div>
-                <div class="column">
-                    <h2>Welcome to My Website</h2>
-                </div>
-                <div class="column">
 
-                </div>
-            </div>
-
-        </div> -->
-        <div>
-            <div>
-                <div class="row">
-                    <div class="column">
-
-                    </div>
-
-                    <div class="column">
-                        <div class="container mt-5">
-                            <div class="row">
-                                <label for="styledSelect" class="form-label text-white">Categories:</label>
-                                <select class="form-select form-select-lg text-white bg-danger border-0"
-                                    id="styledSelect">
-                                    <option selected class="text-black">Select Categories</option>
-                                </select>
-                            </div>
-                            <div class="p-2 rounded-lg shadow-md">
-                                <input type="text" id="searchQuery" placeholder="Enter search Product.."
-                                    class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-red-700 text-white placeholder-white">
-                                <button id="searchBtn"
-                                    class="px-2 py-1 text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
-                                    Search
-                                </button>
-                            </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card featured-card mb-3 position-relative">
+                    <img src="/static/images/IMG_2678.JPG" class="card-img w-100" alt="Image 1" style="height: 450px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex flex-column justify-content-between text-center">
+                        <div class="top-content">
+                            <h5 class="card-title" style="padding-top: 200px;">Bestsellers</h5>
+                            <p class="card-text">Explore our best-selling products</p>
                         </div>
-                    </div>
-                    <div class="column">
-
+                        <!-- <div class="bottom-content">
+                            <a href="#" class="explore-btn">Explore</a>
+                        </div> -->
                     </div>
                 </div>
             </div>
-
-
-            <div class="container mt-4">
-                <div class="row">
-                    <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
-                        <div id="grid-container" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+            
+            <div class="col-md-4">
+                <div class="card featured-card mb-3 position-relative" style="background-color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;">
+                    <img src="/static/images/vanila(2).png" class="card-img w-100" alt="Image 2" style="height: 450px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex flex-column justify-content-between text-center" style="background: rgba(0, 0, 0, 0.4); color: white;">
+                        <div class="top-content">
+                            <h5 class="card-title" style="padding-top: 200px;">New Arrivals</h5>
+                            <p class="card-text">Description of card 2.</p>
                         </div>
+                        <!-- <div class="bottom-content">
+                            <a href="#" class="btn btn-outline-light" style="background: transparent; border: 1px solid white; margin-top: auto;">Explore</a>
+                        </div> -->
                     </div>
-
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card featured-card mb-3 position-relative" style="background-color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden;">
+                    <img src="/static/images/zocochase 100 ml_page-0004.jpg" class="card-img w-100" alt="Image 3" style="height: 450px; object-fit: cover;">
+                    <div class="card-img-overlay d-flex flex-column justify-content-between text-center" style="background: rgba(0, 0, 0, 0.4); color: white;">
+                        <div class="top-content">
+                            <h5 class="card-title" style="padding-top: 200px;">Upcoming Products</h5>
+                            <p class="card-text">Description of card 3.</p>
+                        </div>
+                        <!-- <div class="bottom-content">
+                            <a href="#" class="btn btn-outline-light" style="background: transparent; border: 1px solid white; margin-top: auto;">Explore</a>
+                        </div> -->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <footer class="text-white pt-5 w-100" style="background-color:transparent;">
+    
+        <!-- Content -->
+        <div class="container mt-4">
+            <div class="row">
+                <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
+                    <div id="grid-container" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+                        
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+    <footer class="text-white pt-5 w-100" style="background-color: transparent;">
         <div class="container-fluid pt-5 text-center text-md-start" style="background-color: #4b0101;">
             <div class="row">
                 <!-- Company Info -->
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
                     <h5 class="text-uppercase fw-bold">Your eCommerce</h5>
-                    <p>Your one-stop destination for the best online shopping experience. Shop now for exclusive deals
-                        and offers.</p>
+                    <p>Your one-stop destination for the best online shopping experience. Shop now for exclusive deals and offers.</p>
                 </div>
 
                 <!-- Quick Links -->
@@ -299,7 +435,7 @@
 
             <!-- Copyright -->
             <div class="text-center mt-4">
-                <p class="mb-0">&copy; 2025 Your eCommerce. All Rights Reserved.</p>
+                <p class="mb-0">&copy; 2025 HHH Perfumes. All Rights Reserved.</p>
             </div>
         </div>
     </footer>

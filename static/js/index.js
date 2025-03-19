@@ -72,6 +72,7 @@ $.ajax({
     }
 });
 
+
 $("#styledSelect").val("YourCategoryValue").change();
 $(document).ready(function () {
     loadCart();
@@ -104,6 +105,10 @@ $(document).ready(function () {
         setselectedvalue(selectedValue);
         generate_product_cards(selectedValue);
         }
+        
+        $('html, body').animate({
+            scrollTop: $('#grid-container').offset().top
+        }, 300);
 
     });
 
