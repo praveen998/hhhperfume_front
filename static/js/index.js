@@ -100,15 +100,17 @@ $(document).ready(function () {
     $("#styledSelect").on("change", function () {
         selectedValue = $(this).val(); // Get the selected value
         // Prepare data to send
+        $('html, body').animate({
+            scrollTop: $('#grid-container').offset().top
+        }, 300);
+        
         if (selectedValue !== "Select Category")
         {
         setselectedvalue(selectedValue);
         generate_product_cards(selectedValue);
         }
-        
-        $('html, body').animate({
-            scrollTop: $('#grid-container').offset().top
-        }, 300);
+
+       
 
     });
 
@@ -123,6 +125,11 @@ $(document).ready(function () {
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function(response) {
+
+                $('html, body').animate({
+                    scrollTop: $('#grid-container').offset().top
+                }, 300);
+        
                 $('#grid-container').html(response);
 
                 $('#grid-container').on('click', '#buynow', function (e) {
