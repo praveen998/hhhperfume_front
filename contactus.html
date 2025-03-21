@@ -1,19 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HHH Perfumes</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="/static/js/index.js"></script>
-    <link href="/static/css/index.css" rel="stylesheet">
-    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        /* General Styles */
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -61,7 +54,6 @@
         .title-bar nav a:hover {
             text-decoration: underline;
         }
-
         /* Content Section */
         .content {
             padding: 10px;
@@ -200,62 +192,55 @@
             position: absolute;
             top: -5px;
             right: -10px;
-            background-color: rgb(255, 255, 255);
+            background-color: white;
             color: black;
             font-size: 14px;
             padding: 5px;
             border-radius: 50%;
         }
         .contact-container {
-    max-width: 800px;
-    margin: 50px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.contact-form {
-    text-align: left;
-}
-
-.contact-form label {
-    display: block;
-    margin: 10px 0 5px;
-    font-weight: bold;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-button {
-    background-color: #222;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.contact-details {
-    margin-top: 30px;
-    text-align: left;
-}
-
-.social-links a {
-    display: inline-block;
-    margin-right: 15px;
-    color: #222;
-    text-decoration: none;
-    font-weight: bold;
-}
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color:  #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .success-message {
+            display: none;
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
         /* Footer */
         footer {
             background: #212529;
@@ -298,12 +283,15 @@ button {
             color: whitesmoke;
             font-size: 30px;
         }
-
+        .searchbtn{
+            background-color: red;    
+        }
+        .searchbtn:hover {
+            background-color: rgb(209, 10, 10);
+        }
     </style>
 </head>
-
 <body>
-
     <!-- Title Bar -->
     <div class="title-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px;">
     
@@ -319,7 +307,7 @@ button {
                     class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent text-black placeholder-black"
                     style="width: 300px; flex-grow: 1;">
                 <button id="searchBtn"
-                    class="px-3 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
+                    class="px-3 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition searchbtn">
                     Search
                 </button>
             </div>            
@@ -346,39 +334,29 @@ button {
         </nav>
     </div>    
     
-    <section class="contact-container">
+    <div class="contact-container">
         <h2>Contact Us</h2>
-        <p>Have questions? We're here to help! Reach out to us via the form below or use our contact details.</p>
-        
-        <div class="contact-content">
-            <form class="contact-form">
+        <form id="contactForm">
+            <div class="form-group">
                 <label for="name">Name:</label>
                 <input type="text" id="name" name="name" required>
-                
+                <span class="error" id="nameError"></span>
+            </div>
+            <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>
-                
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" required></textarea>
-                
-                <button type="submit">Send Message</button>
-            </form>
-            
-            <div class="contact-details">
-                <h3>Our Contact Details</h3>
-                <p><strong>Address:</strong> 123 Perfume Street, Fragrance City, 56789</p>
-                <p><strong>Email:</strong> support@hhhperfumes.com</p>
-                <p><strong>Phone:</strong> +1 234 567 890</p>
-                
-                <h3>Follow Us</h3>
-                <div class="social-links">
-                    <a href="#">Facebook</a>
-                    <a href="#">Instagram</a>
-                    <a href="#">Twitter</a>
-                </div>
+                <span class="error" id="emailError"></span>
             </div>
-        </div>
-    </section>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+                <span class="error" id="messageError"></span>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        <p class="success-message" id="successMessage">Thank you! Your message has been submitted.</p>
+    </div>
+    
 
     <footer class="text-white pt-5 w-100" style="background-color: transparent;">
         <div class="container-fluid pt-5 text-center text-md-start" style="background-color: #4b0101;">
@@ -433,7 +411,39 @@ button {
 
     <!-- FontAwesome for Icons -->
     <script src="https://kit.fontawesome.com/YOUR-KIT-CODE.js" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let isValid = true;
+            
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+            
+            document.getElementById("nameError").textContent = "";
+            document.getElementById("emailError").textContent = "";
+            document.getElementById("messageError").textContent = "";
 
+            if (name === "") {
+                document.getElementById("nameError").textContent = "Name is required.";
+                isValid = false;
+            }
+            
+            if (email === "" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                document.getElementById("emailError").textContent = "Enter a valid email address.";
+                isValid = false;
+            }
+            
+            if (message === "") {
+                document.getElementById("messageError").textContent = "Message cannot be empty.";
+                isValid = false;
+            }
+            
+            if (isValid) {
+                document.getElementById("successMessage").style.display = "block";
+                document.getElementById("contactForm").reset();
+            }
+        });
+    </script>
 </body>
-
 </html>
