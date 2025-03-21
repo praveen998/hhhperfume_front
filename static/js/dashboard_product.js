@@ -10,7 +10,8 @@ function getweburl() {
 
 
 function load_add_project_category(){
-  
+
+
 $.ajax({
     url: geturl()+"/list_category",
     method: "GET",
@@ -46,6 +47,7 @@ $(document).ready(function () {
 });
 
 
+
 function add_new_product(){
     const token = sessionStorage.getItem("jwt");
     let formData = new FormData();
@@ -57,6 +59,7 @@ function add_new_product(){
     formData.append("product_img", $("#product_img")[0].files[0]);
     console.log(formData);
 
+    
     $.ajax({
         url: geturl()+"/add_new_product/",
         type: "POST",
