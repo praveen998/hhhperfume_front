@@ -18,7 +18,6 @@
             color: black;
         }
 
-
         a {
             text-decoration: none;
         }
@@ -205,6 +204,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+            
         }
         .form-group {
             margin-bottom: 15px;
@@ -299,43 +299,42 @@
         <img src="../static/images/hhhperfumeslogonew.png" alt="Logo" width="100" height="80">
     
         <!-- Navigation Bar -->
-        <nav style="display: flex; align-items: center; gap: 50px;">
-            
-         
-    
-           
+        <nav style="display: flex; align-items: center; gap: 20px;">           
             <!-- Navigation Links -->
             <div style="display: flex; align-items: center; gap: 20px;">
-                <a href="/index.html" class="text-black">Home</a>
-                <a href="/about.html" class="text-black">About</a>
-                <a href="/contactus.html" class="text-black">Contact</a>
+                <a href="#home" class="text-black">Home</a>
+                <a href="#about" class="text-black">About</a>
+                <a href="#contact" class="text-black">Contact</a>
             </div>
     
         </nav>
     </div>    
     
-    <div class="contact-container">
-        <h2>Contact Us</h2>
-        <form id="contactForm">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <span class="error" id="nameError"></span>
+    <div class="container d-flex justify-content-center align-items-center mt-5">
+        <div class="card shadow-lg p-4" style="max-width: 500px; width: 100%; border-radius: 15px; background: #fff;">
+            <div class="card-body text-center">
+                <h2 class="card-title mb-4 text-uppercase fw-bold" style="color: #4b0101;">Contact Us</h2>
+                <form id="contactForm" action="https://formsubmit.co/nibhasitsolutions@gmail.com" method="POST">
+                    <div class="mb-3">
+                        <input type="text" id="name" class="form-control" placeholder="Your Name" name="name" required>
+                        <div class="error text-danger mt-1" id="nameError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" id="email" class="form-control" placeholder="Your Email" name="email" required>
+                        <div class="error text-danger mt-1" id="emailError"></div>
+                    </div>
+                    <div class="mb-3">
+                        <textarea id="message" class="form-control" placeholder="Your Message" name="message" required></textarea>
+                        <div class="error text-danger mt-1" id="messageError"></div>
+                    </div>
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="https://free.nibhasserver.free.nf/">
+                    <button type="submit" onclick="myfunction()" class="btn w-100 text-white" style="background: #28a745; border-radius: 5px; font-weight: bold;">Send Message</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <span class="error" id="emailError"></span>
-            </div>
-            <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-                <span class="error" id="messageError"></span>
-            </div>
-            <button type="submit">Submit</button>
-        </form>
-        <p class="success-message" id="successMessage">Thank you! Your message has been submitted.</p>
+        </div>
     </div>
+
     
 
     <footer class="text-white pt-5 w-100" style="background-color: transparent;">
@@ -352,10 +351,10 @@
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h5 class="text-uppercase fw-bold">Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="/index.html" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
                         <li><a href="#" class="text-white text-decoration-none">Shop</a></li>
-                        <li><a href="/about.html" class="text-white text-decoration-none">About Us</a></li>
-                        <li><a href="/contactus.html" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
 
@@ -393,37 +392,47 @@
     <script src="https://kit.fontawesome.com/YOUR-KIT-CODE.js" crossorigin="anonymous"></script>
     <script>
         document.getElementById("contactForm").addEventListener("submit", function(event) {
-            event.preventDefault();
             let isValid = true;
-            
-            const name = document.getElementById("name").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const message = document.getElementById("message").value.trim();
-            
-            document.getElementById("nameError").textContent = "";
-            document.getElementById("emailError").textContent = "";
-            document.getElementById("messageError").textContent = "";
 
+            // Name validation
+            let name = document.getElementById("name").value.trim();
             if (name === "") {
-                document.getElementById("nameError").textContent = "Name is required.";
+                document.getElementById("nameError").innerText = "Name is required";
                 isValid = false;
+            } else {
+                document.getElementById("nameError").innerText = "";
             }
-            
-            if (email === "" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                document.getElementById("emailError").textContent = "Enter a valid email address.";
+
+            // Email validation
+            let email = document.getElementById("email").value.trim();
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById("emailError").innerText = "Enter a valid email";
                 isValid = false;
+            } else {
+                document.getElementById("emailError").innerText = "";
             }
-            
+
+            // Message validation
+            let message = document.getElementById("message").value.trim();
             if (message === "") {
-                document.getElementById("messageError").textContent = "Message cannot be empty.";
+                document.getElementById("messageError").innerText = "Message cannot be empty";
                 isValid = false;
+            } else {
+                document.getElementById("messageError").innerText = "";
             }
-            
-            if (isValid) {
-                document.getElementById("successMessage").style.display = "block";
-                document.getElementById("contactForm").reset();
+
+            // If validation fails, prevent form submission
+            if (!isValid) {
+                event.preventDefault();
             }
         });
+        function myfunction(){
+             alert("Message sent successfully!");   
+            }
     </script>
+
 </body>
 </html>
+
+
