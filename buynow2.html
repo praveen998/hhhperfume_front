@@ -14,14 +14,10 @@
     <link href="/static/css/buynow.css" rel="stylesheet">
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <style>
-        body {
-            background-color: whitesmoke;
-            color: #8b0000;
-        }
-
+        /* Title Bar Styles */
         .title-bar {
-            background: whitesmoke;
-            color: black;
+            background: linear-gradient(135deg, #c70404, #470000);
+            color: white;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
@@ -35,7 +31,7 @@
         }
 
         .title-bar nav a {
-            color: black;
+            color: white;
             text-decoration: none;
             font-size: 16px;
         }
@@ -44,69 +40,44 @@
             text-decoration: underline;
         }
 
-        .text-price {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #dc3545;
-        }
-
         .card {
-            background: whitesmoke;
+            background: #ffebee;
             border: 1px solid #c70404;
             color: #470000;
         }
 
         .card-header, .card-footer {
-            background: #c70404;
+            background: #dc3545;
             color: white;
         }
 
         .btn-primary {
-            background-color: #c70404;
+            background-color: #dc3545;
             border: none;
         }
 
         .btn-primary:hover {
-            background-color: #880404;
+            background-color: #470000;
         }
-  
 
-        @media (max-width: 767px) {
-            .card-footer ul li {
-                font-size: 0.875rem;
-            }
-
-            .title-bar nav a {
-                font-size: 0.9rem;
-            }
-
-            h2,
-            h5 {
-                font-size: 1.25rem;
+        @media (max-width: 768px) {
+            .title-bar {
+                flex-direction: column;
+                text-align: center;
             }
         }
-
-        .card-footer {
-            background-color: #dc3545;
-            color: white;
-            border-radius: 10px;
-        }
-
-        .list-group-item {
-            background-color: #dc3545 !important;
-            color: white !important;
-            border: none;
-        }
+    
     </style>
 </head>
 
+
 <body>
     <div class="title-bar">
-        <img src="../static/images/hhhperfumeslogonew.png" alt="Logo" width="100" height="80">
+        <h1>My Website</h1>
         <nav class="d-flex gap-3">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="/index.html">Home</a>
+            <a href="/about.html">About</a>
+            <a href="/contactus.html">Contact</a>
             <div id="cart">
                 <i class="fa fa-shopping-cart"></i>
                 <span id="cart-count" class="badge bg-danger"></span>
@@ -114,11 +85,31 @@
         </nav>
     </div>
 
+
     <div class="container py-4">
-        <div class="row text-center mb-4">
-            <h3>SHOP NOW</h3>
-        </div>
         <div class="row g-4 mainwindow">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">1 item</h5>
+                    </div>
+                    <div id="card_item" class="card-body"></div>
+                    <div class="card-footer mt-4 bg-danger text-white rounded">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-white bg-danger">
+                                <span class="fw-bold">Subtotal</span>
+                                <div id="subtotal" class="fw-bold">$35.00</div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-white bg-danger">
+                                <span class="fw-bold">Total to pay</span>
+                                <div id="total">$35.00</div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+
             <div class="col-md-8">
                 <div class="card h-100">
                     <div class="card-header py-3">
@@ -163,52 +154,28 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-header py-3">
-                        <h5 class="mb-0">1 item</h5>
-                    </div>
-                    <div id="card_item" class="card-body"></div>
-                    <div class="card-footer mt-4 bg-danger text-white rounded">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-white bg-danger">
-                                <span class="fw-bold">Subtotal</span>
-                                <div id="subtotal" class="fw-bold">$35.00</div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0 text-white bg-danger">
-                                <span class="fw-bold">Total to pay</span>
-                                <div id="total">$35.00</div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                </div>
-            </div>
-
         </div>
     </div>
-    <footer class="text-white pt-5 w-100" style="background-color: transparent;">
+    <footer class="text-white pt-5 w-100" style="background-color:transparent;">
         <div class="container-fluid pt-5 text-center text-md-start" style="background-color: #4b0101;">
             <div class="row">
                 <!-- Company Info -->
                 <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mb-4">
-                    <h3 class="text-uppercase fw-bold">HHH Perfumes</h3>
-                    <p>YOUR SEARCH IS OVER WITH US.</p>
+                    <h5 class="text-uppercase fw-bold">Your eCommerce</h5>
                     <p>Your one-stop destination for the best online shopping experience. Shop now for exclusive deals and offers.</p>
                 </div>
-
+    
                 <!-- Quick Links -->
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h5 class="text-uppercase fw-bold">Quick Links</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="/index.html" class="text-white text-decoration-none">Home</a></li>
                         <li><a href="#" class="text-white text-decoration-none">Shop</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="/about.html" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="/contactus.html" class="text-white text-decoration-none">Contact</a></li>
                     </ul>
                 </div>
-
+    
                 <!-- Customer Support -->
                 <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h5 class="text-uppercase fw-bold">Customer Support</h5>
@@ -219,7 +186,7 @@
                         <li><a href="#" class="text-white text-decoration-none">Terms & Conditions</a></li>
                     </ul>
                 </div>
-
+    
                 <!-- Social Media -->
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-4">
                     <h5 class="text-uppercase fw-bold">Follow Us</h5>
@@ -231,10 +198,10 @@
                     </div>
                 </div>
             </div>
-
+    
             <!-- Copyright -->
             <div class="text-center mt-4">
-                <p class="mb-0">&copy; 2025 HHH Perfumes. All Rights Reserved.</p>
+                <p class="mb-0">&copy; 2025 Your eCommerce. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
