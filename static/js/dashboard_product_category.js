@@ -258,6 +258,10 @@ function load_addproject_Categories(){
         url: geturl() + "/list_category",
         method: "GET",
         success: function (data) {
+
+            if (data.length > 0 && Array.isArray(data[0].categories)) {
+                data[0].categories.unshift(""); // Insert at first index
+            }
             const selectElement = $("#styledSelect");
             selectElement.empty(); // Clear existing options
             // Add new options dynamically
@@ -312,6 +316,7 @@ function load_addproject_Categories(){
         }
     });
 }
+
 
 
 
@@ -321,6 +326,12 @@ function loadCategories() {
         url: geturl() + "/list_category", 
         method: "GET",
         success: function (data) {
+
+            if (data.length === 1){
+
+            }
+
+
             const tableBody = $("#categoryTableBody");
             tableBody.empty(); 
 
@@ -447,3 +458,11 @@ function appendRows(data) {
     });
 }
 
+function setselectedvalue(value) {
+    localStorage.setItem("selectedValue", `${value}`);
+}
+
+function getselectedvalue() {
+    selectedValue = localStorage.getItem("selectedValue");
+    return selectedValue;
+}

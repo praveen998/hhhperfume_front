@@ -58,7 +58,6 @@ $.ajax({
         selectElement.append( `<option value="#">Select Category</option>`)
         if (getselectedvalue() === null) {
             setselectedvalue(data[0].categories);
-           
         }
         data.forEach(option => {
             selectElement.append(
