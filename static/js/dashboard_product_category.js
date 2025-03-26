@@ -258,12 +258,8 @@ function load_addproject_Categories(){
         url: geturl() + "/list_category",
         method: "GET",
         success: function (data) {
-
-            if (data.length > 0 && Array.isArray(data[0].categories)) {
-                data[0].categories.unshift(""); // Insert at first index
-            }
             const selectElement = $("#styledSelect");
-            selectElement.empty(); // Clear existing options
+            // selectElement.empty(); 
             // Add new options dynamically
             data.forEach(option => {
                 selectElement.append(
@@ -276,48 +272,6 @@ function load_addproject_Categories(){
         }
     });
 }
-
-function load_addproject_Categories(){
-    $.ajax({
-        url: geturl() + "/list_category",
-        method: "GET",
-        success: function (data) {
-            const selectElement = $("#styledSelect");
-            selectElement.empty(); // Clear existing options
-            // Add new options dynamically
-            data.forEach(option => {
-                selectElement.append(
-                    `<option value="${option.categories}">${option.categories}</option>`
-                );
-            });
-        },
-        error: function () {
-            alert("Failed to load options. Please try again.");
-        }
-    });
-}
-
-function load_addproject_Categories(){
-    $.ajax({
-        url: geturl() + "/list_category",
-        method: "GET",
-        success: function (data) {
-            const selectElement = $("#styledSelect");
-            selectElement.empty(); // Clear existing options
-            // Add new options dynamically
-            data.forEach(option => {
-                selectElement.append(
-                    `<option value="${option.categories}">${option.categories}</option>`
-                );
-            });
-        },
-        error: function () {
-            alert("Failed to load options. Please try again.");
-        }
-    });
-}
-
-
 
 
 function loadCategories() {
