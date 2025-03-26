@@ -4,7 +4,7 @@ function seturl() {
 }
 
 function setweburl() {
-    localStorage.setItem("weburl", "https://free.nibhasserver.free.nf");
+    localStorage.setItem("weburl", "https://hhhvanilaperfumes.com");
 }
 
 function getweburl() {
