@@ -258,49 +258,41 @@
 
 <body>
 
-    <!-- Title Bar -->
-    <div class="title-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px;">
-    
-        <!-- Logo -->
-        <img src="../static/images/hhhperfumeslogonew.png" alt="Logo" width="100" height="80">
-    
-        <!-- Navigation Bar -->
-        <nav style="display: flex; align-items: center; gap: 50px;">
-            
-            <!-- Search Bar -->
-            <div class="rounded-lg" style="display: flex; gap: 10px; align-items: center; background-color: transparent; width: 100%;">
-                <input type="text" id="searchQuery" placeholder="Enter the product name"
-                    class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent text-black placeholder-black"
-                    style="width: 300px; flex-grow: 1;">
-                <button id="searchBtn"
-                    class="px-3 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
-                    Search
-                </button>
-            </div>            
-    
-            <!-- Category Dropdown -->
-            <div class="row" style="padding-bottom: 35px; display: flex; align-items: center; gap: 2px;">
-                <label for="styledSelect" class="form-label text-white" style="font-size: 14px;">Categories:</label>
-                <select class="form-select text-black bg-white border-1 rounded px-1 py-0" id="styledSelect" style="font-size: 15px; height: 40px; min-width: 150px;">
-                    <option selected class="text-black">Select Category</option>
-                </select>
-            </div>            
-            
-            <!-- Navigation Links -->
-            <div style="display: flex; align-items: center; gap: 20px;">
-                <a href="/index.html" class="text-black">Home</a>
-                <a href="/about.html" class="text-black">About</a>
-                <a href="/contactus.html" class="text-black">Contact</a>
+  <!-- Title Bar -->
+<div class="title-bar flex flex-col md:flex-row items-center justify-between p-2 bg-white shadow-md w-full gap-2">
 
-                <div id="cart" style="display: flex; align-items: center; gap: 5px;">
-                    <i class="fa fa-shopping-cart text-black"></i> <!-- Cart icon -->
-                    <span id="cart-count" class="badge text-black">5</span> <!-- Cart item count -->
-                </div>
+    <!-- Logo -->
+    <img src="../static/images/hhhperfumeslogonew.png" alt="Logo" width="100" height="80" class="mb-2 md:mb-0">
+
+    <!-- Navigation Bar -->
+    <nav class="flex flex-col md:flex-row items-center justify-between w-full gap-6 md:gap-10">
+
+     <!-- Category Dropdown (Responsive) -->
+<div class="flex items-center gap-2 justify-center w-full md:w-auto">
+    <label for="styledSelect" class="form-label text-white text-sm hidden md:block">Categories:</label>
+    <select class="form-select text-black bg-white border border-gray-300 rounded-lg px-4 py-2 shadow-sm 
+                   hover:border-red-500 focus:ring-2 focus:ring-red-500 transition-all duration-300"
+        id="styledSelect" style="font-size: 15px; height: 40px; min-width: 180px;">
+        <option selected class="text-gray-700">Select Category</option>
+    </select>
+</div>
+
+        
+
+        <!-- Navigation Links (Responsive) -->
+        <div class="flex items-center gap-6 justify-center w-full md:w-auto">
+            <a href="/index.html" class="text-black">Home</a>
+            <a href="/about.html" class="text-black">About</a>
+            <a href="/contactus.html" class="text-black">Contact</a>
+
+            <!-- Cart Icon -->
+            <div id="cart" class="flex items-center gap-2">
+                <i class="fa fa-shopping-cart text-black"></i>
+                <span id="cart-count" class="badge text-black">5</span>
             </div>
-    
-        </nav>
-    </div>    
-    
+        </div>
+    </nav>
+</div>
 
     <div class="container-fluidcontent">
         
@@ -380,6 +372,16 @@
         <!-- Content -->
         <div class="container mt-4">
             <div class="row">
+                         <!-- Search Bar -->
+                         <div class="rounded-lg" style="display: flex; gap: 10px; align-items: center; background-color: transparent; width: 100%;">
+                            <input type="text" id="searchQuery" placeholder="Enter the product name"
+                                class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 bg-transparent text-black placeholder-black"
+                                style="width: 200px; flex-grow: 1;">
+                            <button id="searchBtn"
+                                class="px-3 py-2 text-white bg-red-500 rounded-lg hover:bg-red-600 transition">
+                                Search
+                            </button>
+                        </div>   
                 <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
                     <div id="grid-container" class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
                         
